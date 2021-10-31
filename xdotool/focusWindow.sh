@@ -15,6 +15,10 @@ xdotool search --name ${1} \
 
 # Hacky way to disable caps lock after enabling it. Ideally I'll be able to find a way
 # to just disable the caps lock functionality and keep the key.
+#
+# I guess there could be a slight race condition here, between me querying the state of the
+# caps lock key and the OS enabling caps lock. I imagine though, by the time xbindkeys invokes
+# this script the OS would have already handled the caps lock key...
 capsState=`xset q  | grep Caps | awk '{print $4 }'` # Query caps lock state with xset
 if [[ ${capsState} == "on" ]]; then
     xdotool key --clearmodifiers Caps_Lock
