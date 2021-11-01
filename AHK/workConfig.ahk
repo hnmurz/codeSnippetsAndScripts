@@ -11,10 +11,12 @@
 #Persistent
 #InstallMouseHook
 #InstallKeybdHook
+#KeyHistory 0 ; Enable this only if we need to debug
 
 ; The specified period is kind of arbitrarily chosen. The idea behind it was to pick a value that will
 ; be able to respond quick enough to whatever timing I want to choose.
 SetTimer, IdleCheck, 150
+;SetTimer, IdleCheck, 5000
 toolTipText:="Enabling autoclicking"
 ToolTip, Enabling autoclicking
 SetTimer, FollowCursorTooltip, 35
@@ -25,61 +27,94 @@ SetTimer, RemoveToolTip, 2000
 tog:=0
 ; Look at documentation for Labels for ::, this is a hotkey label.*/
 ; # represent window key
+; We could also use SendMode to make send synonymous with sendInput
 #r::Reload
-#f::SendRaw fr.sh pretty -ED | grep -i 
-#n::SendRaw fr.sh pretty -ED | grep -i l3_neighbo
-#s::SendRaw monit start cn-node-hal 
+#f::SendInput, fr.sh pretty -ED | grep -i 
+#n::SendInput, fr.sh pretty -ED | grep -i l3_neighbo
+#s::SendInput, monit start cn-node-hal 
+#b::SendInput, babeltrace2 --clock-gmt --clock-date . | frpretty -ED 
+#p::SendInput, field last  info one_pkt=yes stage=
+#h::SendInput, halDebug halState 1
 $`::TmuxPrefixShortcut()
 $Insert::TmuxPrefixShortcut()
 Capslock::Esc
 F3::
 tog:=HandleMouseToggle(0, tog)
 return
-F4::HandleWorkSpaceSwitch(1)
-F5::HandleWorkSpaceSwitch(2)
-F6::HandleWorkSpaceSwitch(3)
-F7::HandleWorkSpaceSwitch(4)
-F8::HandleWorkSpaceSwitch(5)
-F9::HandleWorkSpaceSwitch(6)
-F10::HandleWorkSpaceSwitch(7)
-F11::HandleWorkSpaceSwitch(8)
-F12::HandleWorkSpaceSwitch(9)
-$ESC::WinActivate, emacsSSH ; Dollar sign makes use look for non AHK generated Esc
-                            ; For more info on this look at the AHK help for symbols (in Hotkeys)
-F1::WinActivate, tmuxSSH
-F2::
-Send {LAlt down}{Tab} ; An alt-tab sequence
-Sleep 100
-Send {LAlt up}
+F4::HandleWorkSpaceSwitch(1, "F4")
+F5::HandleWorkSpaceSwitch(2, "F5")
+F6::HandleWorkSpaceSwitch(3, "F6")
+F7::HandleWorkSpaceSwitch(4, "F7")
+F8::HandleWorkSpaceSwitch(5, "F8")
+F9::HandleWorkSpaceSwitch(6, "F9")
+F10::HandleWorkSpaceSwitch(7, "F10")
+F11::HandleWorkSpaceSwitch(8, "F11")
+F12::HandleWorkSpaceSwitch(9, "F12")
+
+; Dollar sign makes use look for non AHK generated Esc
+; For more info on this look at the AHK help for symbols (in Hotkeys)
+$ESC::MyWinActivate("emacsSSH")
+F1::MyWinActivate("tmuxSSH")
+F2::AltTabFunction()
 return
+
+MyWinActivate(frameName)
+{
+   if (WinActive(frameName))
+   {
+      SendInput {LAlt down}{Tab} ; An alt-tab sequence
+      Sleep 50
+      SendInput {Tab}
+      Sleep 50
+      SendInput {LAlt up}
+   }
+   else
+   {
+      WinActivate, %frameName%
+   }
+}
+
+AltTabFunction()
+{
+   if (WinActive("ahk_exe diaw.exe"))
+   {
+      SendInput {F2}
+   }
+   else
+   {
+      SendInput {LAlt down}{Tab} ; An alt-tab sequence
+      Sleep 100
+      SendInput {LAlt up}
+   }
+}
 
 TmuxPrefixShortcut()
 {
-    if WinActive("tmuxSSH") || WinActive("emacsSSH")
+    if WinActive("tmuxSSH")
     {
-        Send {LCtrl down}{a}
+        SendInput {LCtrl down}{a}
         Sleep 50
-        Send {LCtrl up}
+        SendInput {LCtrl up}
     }
     else
     {
-        Send, ``
+        SendInput, ``
     }
 }
 
-HandleWorkSpaceSwitch(workSpace)
+HandleWorkSpaceSwitch(workSpace, key)
 {
     if WinActive("tmuxSSH") || WinActive("emacsSSH")
     {
         ;; This key sequence will switch the virtual workspace for both these applications
-        Send {LCtrl down}{a}
+        SendInput {LCtrl down}{a}
         Sleep 100
-        Send {LCtrl up}
-        Send {%workSpace%}
+        SendInput {LCtrl up}
+        SendInput {%workSpace%}
     }
     else
     {
-        Reload
+        SendInput {%key%}
     }
 }
 
@@ -89,10 +124,10 @@ HandleMouseToggle(workSpace, tog)
 {
     if WinActive("tmuxSSH") || WinActive("emacsSSH")
     {
-        Send {LCtrl down}{a}
+        SendInput {LCtrl down}{a}
         Sleep 100
-        Send {LCtrl up}
-        Send {%workSpace%}
+        SendInput {LCtrl up}
+        SendInput {%workSpace%}
         return tog
     }
     else
@@ -127,6 +162,7 @@ HandleMouseToggle(workSpace, tog)
 IdleCheck:
     ; Check time constraints
     if (A_TimeIdleMouse < 650) || (A_TimeIdleMouse > 800) || (A_TimeIdleKeyboard < 3000)
+    ;if (A_TimeIdleMouse < 650) || (A_TimeIdleKeyboard < 3000)
     {
         return
     }
@@ -162,7 +198,7 @@ FollowCursorTooltip:
 return
 
 RemoveToolTip:
-    ToolTip
     SetTimer, RemoveToolTip, off
     SetTimer, FollowCursorTooltip, off
+    ToolTip
 return

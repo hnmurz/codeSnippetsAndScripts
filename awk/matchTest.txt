@@ -1,0 +1,8 @@
+REMOVE_ME
+# Uncomment these lines:
+# foo
+# bar
+Comment these lines:
+baz
+
+# Don't uncomment this line!
