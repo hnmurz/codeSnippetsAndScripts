@@ -35,7 +35,7 @@ tog:=0
 #b::SendInput, babeltrace2 --clock-gmt --clock-date . | frpretty -ED 
 #p::SendInput, field last  info one_pkt=yes stage=
 #h::SendInput, halDebug halState 1
-$`::TmuxPrefixShortcut()
+; $`::TmuxPrefixShortcut()
 $Insert::TmuxPrefixShortcut()
 Capslock::Esc
 F3::
