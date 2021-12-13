@@ -1,0 +1,28 @@
+#!/usr/bin/expect
+
+set prompt_default "diag@*?"
+set port "225"
+spawn bash -c "scp -P $port ~/.bashrc_diag diag@$argv:/tmp/.bashrc_diag"
+expect "yes/no" {
+        send "yes\r"
+        expect "*?assword" { send "diag\r" }
+        } "*?assword" { send "diag\r" }
+
+spawn bash -c "scp -P $port ~/.bashrc_hal diag@$argv:/tmp/.bashrc_hal"
+expect "yes/no" {
+        send "yes\r"
+        expect "*?assword" { send "diag\r" }
+        } "*?assword" { send "diag\r" }
+
+#spawn bash -c "ssh -t diag@$argv \"bash --rcfile /tmp/.bashrc_diag ; rm /tmp/.bashrc_diag; rm /tmp/.bashrc_hal\""
+spawn bash -c "ssh -t diag@$argv -p $port \" bash --rcfile /tmp/.bashrc_diag;\""
+expect {
+"yes/no" {
+        send "yes\r"
+        expect "*?assword" { send "diag\r" }}
+"*?assword" { send "diag\r" }
+"$prompt_default" {send_user "Successful login\r"}
+}
+
+interact
+
