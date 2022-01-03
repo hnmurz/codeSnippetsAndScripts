@@ -14,6 +14,6 @@ xinput --set-prop ${mouseId} 'Coordinate Transformation Matrix' 1 0 0 0 1 0 0 0 
 
 # Some people say that libinput Accel Speed is the better prop to modify.
 # See: https://github.com/WayfireWM/wayfire/issues/192
-mouseSensAccel=-0.55 # < 0 slows, > 0 accels
+mouseSensAccel=-0.65 # < 0 slows, > 0 accels
 xinput --set-prop ${mouseId} 'libinput Accel Speed' ${mouseSensAccel}
 

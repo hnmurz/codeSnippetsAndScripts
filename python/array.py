@@ -25,3 +25,13 @@ foo.pop(3)
 foo.insert(3, 9)
 print(foo)
 
+print("Looping over array")
+foo = ["a", "b", "c", "d", "e", "f", "g", "h"]
+print("Using iterator")
+for entry in foo:
+    print(entry)
+print("Using index")
+for i in range(0, len(foo)):
+    print(i, foo[i])
+    
+
