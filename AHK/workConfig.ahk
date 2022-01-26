@@ -62,11 +62,18 @@ MyWinActivate(frameName)
 {
    if (WinActive(frameName))
    {
-      SendInput {LAlt down}{Tab} ; An alt-tab sequence
-      Sleep 50
-      SendInput {Tab}
-      Sleep 50
-      SendInput {LAlt up}
+      if (frameName == "tmuxSSH")
+      {
+        TmuxPrefixShortcut()
+      }
+      else
+      {
+        SendInput {LAlt down}{Tab} ; An alt-tab sequence
+        Sleep 50
+        SendInput {Tab}
+        Sleep 50
+        SendInput {LAlt up}
+      }
    }
    else
    {
