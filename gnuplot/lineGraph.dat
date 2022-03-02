@@ -1,0 +1,8 @@
+1 1 2 3 
+2 3 3 6 
+3 5 4 9 
+4 7 5 12 
+# Using - to specify missing data points
+5 9 - 15
+6 11 - 18
+7 13 5 21

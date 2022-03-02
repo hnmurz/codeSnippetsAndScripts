@@ -1,0 +1,2 @@
+plot "lineGraph.dat" using 1:2 title "line1" with linespoints,\
+     "lineGraph.dat" using 1:3 title "line2" with linespoints, "lineGraph.dat" using 1:4 title "line3" with lines

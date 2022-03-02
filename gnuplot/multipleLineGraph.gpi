@@ -1,0 +1,32 @@
+# Run this script with:
+#       gnuplot -p multipleLineGraph.gpi
+# This script shows how to generate multiple windows along with
+# using the multiplot function to embed multiple plots into the
+# same window.
+
+# Window 0
+set term x11 0 size 1200,600 position 0,0
+# Autoscale helps auto set the max/min for the axis, to be tight
+set autoscale fix
+set title "This is a plot showing multiple lines"
+# Note: "linespoints" includes a marker for each data point, where
+# "line" does not
+plot "lineGraph.dat" using 1:2 title "line1" with linespoints,\
+     "lineGraph.dat" using 1:3 title "line2" with linespoints,\
+     "lineGraph.dat" using 1:4 title "line3" with lines
+
+# Window 1
+set term x11 1 position 0,600
+set multiplot layout 1,2
+set title "This is a plot splitting the data into subgraphs"
+set xlabel "Arbitrary X values"
+set ylabel "Arbitrary Y values"
+plot "lineGraph.dat" using 1:2 title "line1" with linespoints
+# Remove key for the second subplot
+set key off
+set xlabel "Less Arbitrary X values"
+set ylabel "Less Arbitrary Y values"
+set style line 1 linecolor "green" linewidth 2
+plot "lineGraph.dat" using 1:3 title "line2" with linespoints ls 1
+unset style line
+unset multiplot
