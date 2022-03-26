@@ -1,0 +1,73 @@
+% I use the eplain pkg. Helps with cross referencing.
+\input eplain
+% To enable hyperlinks we need this line
+\enablehyperlinks
+
+%======================================================
+% Centering text
+%======================================================
+\centerline{This text is centered}
+
+%======================================================
+% Inserting an image:
+%======================================================
+% Look into texdoc pdftex and look for the PDFTEX primitives->graphics
+Here is an image:
+
+\pdfximage width .15 \hsize{images/sample.png}
+\pdfrefximage\pdflastximage
+
+Here is image the image, but a little larger:
+
+\pdfximage width .25 \hsize{images/sample.png}
+\pdfrefximage\pdflastximage
+
+%======================================================
+% Tables
+%======================================================
+$$
+\vbox{
+\halign{#\hfil & \quad#\hfil & \quad#\hfil\cr
+\noalign{\medskip\hrule\medskip}
+\bf Command & \hfil \bf Description & \hfil \bf Example \cr
+\noalign{\medskip\hrule\medskip}
+\verbatim git add|endverbatim & add local changes to git's internal list of local changes & \verbatim git add <file>|endverbatim\cr
+\verbatim git commit|endverbatim & commit you local changes (think, making a new record)  & \verbatim git commit -a -m ``message''|endverbatim \cr
+\verbatim git push|endverbatim & push your changes upstream & \verbatim git push origin master|endverbatim\cr
+\verbatim git log|endverbatim & view previous commits & \verbatim git log|endverbatim\cr
+\verbatim git show|endverbatim & show contents of a commit. Default is last commit. & \verbatim git show|endverbatim\cr
+} %halign
+} %vbox
+$$
+
+
+%======================================================
+% Eplain usage:
+%======================================================
+%======================================================
+% Cross reference
+%======================================================
+\def\sectionword{Section}
+\definexref{Section:}{Cross reference to nothing really}{section}
+Now to reference this \ref{Section:}
+
+%======================================================
+% Code snippets
+%======================================================
+Here is a nice way to put code snippets, this uses the verbatim command from eplain
+\medskip
+\verbatim $ ls greektext-westcott-hort/parsed/
+1CO.UWH  1TH.UWH  2JO.UWH  2TI.UWH  COL.UWH  HEB.UWH  JUDE.UWH  MT.UWH   RE.UWH
+1JO.UWH  1TI.UWH  2PE.UWH  3JO.UWH  EPH.UWH  JAS.UWH  LU.UWH    PHM.UWH  RO.UWH
+1PE.UWH  2CO.UWH  2TH.UWH  AC.UWH   GA.UWH   JOH.UWH  MR.UWH    PHP.UWH  TIT.UWH
+|endverbatim
+\medskip
+
+%======================================================
+% hyperlink reference
+%======================================================
+\href{https://en.wikipedia.org/wiki/Computer_terminal}{terminal}
+
+
+% Always need this at the end of a file
+\bye
