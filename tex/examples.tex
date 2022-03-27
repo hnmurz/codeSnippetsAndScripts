@@ -4,12 +4,12 @@
 \enablehyperlinks
 
 %======================================================
-% Centering text
+% TOPIC: Centering text
 %======================================================
 \centerline{This text is centered}
 
 %======================================================
-% Inserting an image:
+% TOPIC: Inserting an image:
 %======================================================
 % Look into texdoc pdftex and look for the PDFTEX primitives->graphics
 Here is an image:
@@ -23,7 +23,47 @@ Here is image the image, but a little larger:
 \pdfrefximage\pdflastximage
 
 %======================================================
-% Tables
+% TOPIC: Items
+%======================================================
+\item{1.} This is an item
+\itemitem{1.1} This is a sub item
+
+%======================================================
+% TOPIC: Breaks, Page Breaks
+%======================================================
+% This command forces a page break
+\vfil\break
+
+%======================================================
+% TOPIC: Equations
+%======================================================
+% Fractions
+$$ 1 \over N \eqdef{Fractions}$$
+
+% Conditional Equations
+% See page 175 in The Texbook
+$$ x =\cases{x,&if $x=0$;\cr -x,&otherwise.\cr}\eqdef{Conditional}$$
+
+% Large left brace, putting the dot at the end of the \right makes it output nothing
+$$ x = \left\lbrace _{y}^{z \over 4}\right.\eqdef{leftRight}$$
+
+% Normal Text in equation
+$$ x = \rm{max}(x, y)$$
+
+% Aligning equations
+$$
+\eqalign{
+L_i&=\sum_{j\neq y_i}\cases{
+0,&if $s_{y_i}\ge s_j+1$\cr
+s_j-s_{y_i}+1&otherwise\cr}\cr
+&=\sum_{j\neq y_i}max(0,s_j-s_{y_i}+1)\cr
+} %eqalign
+\eqdef{Lec3:SVMLoss}
+$$
+
+
+%======================================================
+% TOPIC: Tables
 %======================================================
 $$
 \vbox{
@@ -42,17 +82,17 @@ $$
 
 
 %======================================================
-% Eplain usage:
+% TOPIC: Eplain usage:
 %======================================================
 %======================================================
-% Cross reference
+% TOPIC: Cross reference
 %======================================================
 \def\sectionword{Section}
 \definexref{Section:}{Cross reference to nothing really}{section}
 Now to reference this \ref{Section:}
 
 %======================================================
-% Code snippets
+% TOPIC: Code snippets
 %======================================================
 Here is a nice way to put code snippets, this uses the verbatim command from eplain
 \medskip
@@ -64,7 +104,7 @@ Here is a nice way to put code snippets, this uses the verbatim command from epl
 \medskip
 
 %======================================================
-% hyperlink reference
+% TOPIC: Hyperlink reference
 %======================================================
 \href{https://en.wikipedia.org/wiki/Computer_terminal}{terminal}
 

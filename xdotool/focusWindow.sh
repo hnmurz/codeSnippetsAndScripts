@@ -1,6 +1,6 @@
 #! /bin/bash
 
-LOGFILE=~/multimedia/keybindings.log
+LOGFILE=/multimedia/keybindings.log
 
 # For now I only care about switching to my emacs or terminal.
 if [[ ! ${1} =~ emacs\@sp00ky|sp00kyTerminal ]]; then
