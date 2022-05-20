@@ -17,3 +17,9 @@ echo -e "\nAccessing elements with variabls"
 i="a"
 echo "i=\"a\""
 echo "\${foo[\$i]} :" ${foo[$i]}
+
+#checking if element exists
+if [[ ${foo["a"]} ]]; then
+   echo "foo[\"a\"] exists"
+fi
+

@@ -28,10 +28,3 @@ for ((i=0;i<${#foo[@]};i++)); do
    printf "foo[%s]=%s, " ${i} ${foo[i]}
 done
 printf "\n"
-
-
-return 0;
-# infinite loop
-while true; do
-   echo "here"
-done

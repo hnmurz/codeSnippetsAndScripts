@@ -7,3 +7,10 @@
 for file in ./*; do
    mv ${file} ${file/\.gz/\.txt}
 done
+
+# Checking if a variable is defined:
+if [ -z ${foo+x} ]; then
+   echo "foo is not defined"
+fi
+# If foo is defined, it substitutes x for its value. This catches empty variable definitions
+
