@@ -29,9 +29,22 @@ for ((i=0;i<${#foo[@]};i++)); do
 done
 printf "\n"
 
+echo -e "\nlooping through array by expanding keys:"
+foo=(foo bar baz baz)
+for i in ${!foo[@]}; do
+   echo ${foo[${i}]}
+done
 
-return 0;
+exit 0;
+
 # infinite loop
 while true; do
    echo "here"
 done
+
+NUM_EPS=2
+for ((i = 0; i < ${NUM_EPS}; i++)); do
+   printf "${i}\n"
+done
+
+

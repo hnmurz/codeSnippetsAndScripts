@@ -36,3 +36,23 @@ echo ${array[@]}
 array=(${array[@]:7})
 echo ${array[@]}
 echo ${#array[@]}
+
+array=("foo" "foobar" "baz" "naz" "jazz" "foobaz")
+key="foob"
+if [[ " ${array[@]} " =~ " ${key} " ]]; then
+   echo "Found: ${key}"
+else
+   echo "Did not find: \"${key}\" in array=(${array[@]})"
+fi
+
+
+# Expanding arrays
+array=(1 2 3 4)
+# As multiple arguments
+echo ${array[@]}
+# As one argument
+echo ${array[*]}
+
+# Visually, they look the same, but the end result is different when
+# we consider the arg number
+

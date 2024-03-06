@@ -1,5 +1,11 @@
 #!/bin/bash
 
+j=(1 2 3 4 5)
+for p in ${j[@]}; do
+   echo "${p[i]}"
+done
+
+
 echo "Looping between 0-3"
 for i in {0..3}; do
    printf "i=%d, " ${i}

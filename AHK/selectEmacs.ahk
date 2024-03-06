@@ -1,0 +1,3 @@
+WinActivate, "emacsSSH"
+return
+
